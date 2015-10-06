@@ -1,0 +1,3 @@
+class QuotesController < ApplicationController
+  
+end
