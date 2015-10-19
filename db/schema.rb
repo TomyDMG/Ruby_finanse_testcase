@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006132308) do
+ActiveRecord::Schema.define(version: 20151015093937) do
 
   create_table "quotes", force: :cascade do |t|
     t.datetime "created_at",   null: false
@@ -19,7 +19,11 @@ ActiveRecord::Schema.define(version: 20151006132308) do
     t.string   "symbol"
     t.decimal  "price"
     t.datetime "date_trading"
+    t.integer  "user_id"
+    t.integer  "quantity", default: 1
   end
+
+  add_index "quotes", ["user_id"], name: "index_quotes_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

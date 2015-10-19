@@ -1,0 +1,46 @@
+
+<div class="span8">
+  <% if @user.quotes.any? %>
+    <h3>Котировки в вашем портфеле (<%= @user.quotes.count %>):</h3>
+
+    <div id="daftar" class="tab-pane active">
+    				<br>
+    				<div class="table-responsive">
+    					<table class="table table-hover">
+      						<thead>
+      							<tr>
+      								<th>Symbol</th>
+      								<th>Price</th>
+                      <th>Quantity</th>
+                      <th>Tota price</th>
+      							</tr>
+      						</thead>
+                  <% @quotes.each do |q| %>
+      						<tbody>
+      							<tr>
+      								<td><%=q.symbol%></td>
+      								<td><%=number_to_currency(q.price)%></td>
+                      <td><%=q.quantity%></td>
+                      <td><%=number_to_currency(q.total_price)%></td>
+      								<td><%= link_to 'Редактировать', edit_quote_path(q) %>
+                      <%= link_to 'Удалить', q, method: :delete %></td>
+      							</tr>
+      						</tbody>
+                  <% end %>
+    					</table>
+  				</div>
+      </div>
+    <% end %>
+    <td><%#=@ans%></td>
+
+
+</div>
+<%= simple_form_for(@quote) do |f| %>
+  <div class="form">
+    <%= f.text_field :symbol, placeholder: "Compose new quote..." %>
+    <%= f.number_field :quantity, placeholder: "Quantiy...", min: 1 %>
+    <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+  </div>
+<% end %>
+
+<%= high_stock("some_id", @chart) %>

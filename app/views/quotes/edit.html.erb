@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="form">
+
+  <h1>Изменить</h1>
+
+  <%= simple_form_for(@quote) do |q| %>
+    <%= q.text_field :symbol, :placeholder => "New quote symbol" %>
+    <%= q.number_field :quantity, :placeholder => "New quantity", min: 1 %>
+    <%= q.submit "Обновить", class: "btn-submit" %>
+  <% end %>
+
+
+  </div>
+</div>

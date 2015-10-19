@@ -14,12 +14,13 @@
  *= require_self
  */
  html, body {
-  background: #fff;
+  background-image: url("squairy_light.png");
+  background-repeat: repeat repeat;
+  background-size: auto auto;
   font-family: Arial, sans-serif;
   font-weight: bold;
   margin: 0;
   padding: 0;
-  text-transform: lowercase;
 }
 
 .container {
@@ -92,4 +93,3 @@ input[type=password] {
   border: 0;
   margin-top: 6px;
 }
-  
