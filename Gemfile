@@ -4,7 +4,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
+gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -30,7 +31,9 @@ gem 'lazy_high_charts'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+group :production do
+  gem 'rails_12factor'
+end
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -46,3 +49,5 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
+
+ruby "2.2.1p85"
