@@ -11,15 +11,9 @@ class UsersController < ApplicationController
 
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
     f.title(:text => "График цены портфела")
-    #f.xAxis(:categories => ["United States", "Japan", "China", "Germany", "France"])
-    f.series(:name => "GDP in Billions", :yAxis => 0, :data => portfolio_price)
-    portfolio_price
-    f.yAxis [
-      {:title => {:text => "GDP in Billions", :margin => 70} },
-      {:title => {:text => "Population in Millions"}, :opposite => true},
-    ]
-
-    f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical',)
+    f.series(:name => "Цена портфеля", :yAxis => 0, :data => portfolio_price, pointStart: @data.last.trade_date.to_time, pointInterval: 24 * 360 * 10)
+    f.yAxis [      {:title => {:text => "Цена портфеля в USD", :margin => 70} }    ]
+    #f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical',)
     f.chart({:defaultSeriesType=>"column"})
     end
   end
@@ -40,16 +34,18 @@ class UsersController < ApplicationController
 
 
   def portfolio_price
-    @ans = Array.new(800) {0}
+    @ans = Array.new(505) {0}
+          @array = Array.new
     User.find(params[:id]).quotes.each do |q|
-      @array = Array.new
-      @data = @yahoo_client.historical_quotes(q.symbol, { start_date: Time::now-(24*60*60*1000), end_date: Time::now })
+
+      @data = @yahoo_client.historical_quotes(q.symbol, { start_date: Time::now-(24*60*60*365*2), end_date: Time::now })
       @data.each do |d|
         @array << d.close.to_f * q.quantity
       end
       @array.each_with_index {|e, i| @ans[i] += e}
+            @array = Array.new
     end
-    return @ans
+    return @ans.reverse
   end
 
   private
