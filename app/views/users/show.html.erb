@@ -42,6 +42,7 @@
   </div>
 <% end %>
 
-<%= high_stock("some_id", @chart) %>
-<%=@ans.reverse%>
-<%=@array%>
+<% if @user.quotes.any? %>
+  <%= high_stock("some_id", @chart) %>
+  <%= @a %>
+<% end %>
