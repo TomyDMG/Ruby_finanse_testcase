@@ -1,13 +1,19 @@
 class QuotesController < ApplicationController
 
 def create
+  @yahoo_client = YahooFinance::Client.new
   @quote = current_user.quotes.build(quotes_params)
   @quote.symbol.upcase!
-  if @quote.save
-    flash[:success] = "Акция добавлена в портфель."
-    redirect_to current_user
+  if @yahoo_client.quotes([@quote.symbol], [:name])[0].name != "N/A"
+    if @quote.save
+      flash[:success] = "Акция добавлена в портфель."
+      redirect_to current_user
+    else
+      flash[:alert] = "Ошибка"
+      redirect_to current_user
+    end
   else
-    flash[:alert] = "Ошибка"
+    flash[:alert] = "Несуществующая котировка"
     redirect_to current_user
   end
 end

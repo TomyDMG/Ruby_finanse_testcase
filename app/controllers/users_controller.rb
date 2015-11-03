@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     f.series(:name => "Цена портфеля",  :data => portfolio_price)
     f.yAxis [      {:title => {:text => "Цена портфеля в USD", :margin => 70} }    ]
     #f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical',)
-    f.chart({:defaultSeriesType=>"column"})
+    f.chart({:defaultSeriesType=>"line"})
     end
   end
   end
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
 
   def portfolio_price
-    @ans = Array.new(503) {0}
+    @ans = Array.new(504) {0}
     @dates = Array.new
     @array = Array.new
     User.find(params[:id]).quotes.each do |q|
