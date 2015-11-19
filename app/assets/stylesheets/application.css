@@ -13,7 +13,8 @@
  *= require_tree .
  *= require_self
  */
- html, body {
+
+html, body {
   background-image: url("squairy_light.png");
   background-repeat: repeat repeat;
   background-size: auto auto;
@@ -22,7 +23,6 @@
   margin: 0;
   padding: 0;
 }
-
 .container {
   padding: 0;
   width: 100%;
@@ -34,17 +34,14 @@
   position: inline;
   margin: 20px 20px 0 0;
 }
-
 .header {
   margin: 0;
   padding: 0;
 }
-
 .header li {
- display: inline;
- margin-left: 30px;
+  display: inline;
+  margin-left: 30px;
 }
-
 .header img {
   margin: 0 20px 0 0;
   height: 80px;
@@ -55,7 +52,6 @@
   font-size: 20px;
   text-decoration: none;
 }
-
 .header a:hover {
   color: #c91717;
   text-decoration: none;
@@ -63,18 +59,14 @@
 
 /* FORM PAGES */
 
-
 .form {
-  text-align:center;
+  text-align: center;
   margin: 0 auto 10px;
   padding: 20px 0 10px 0;
   font-size: 16px;
   width: 300px;
 }
-
-input[type=text],
-input[type=email],
-input[type=password] {
+input[type=text], input[type=email], input[type=password] {
   color: #666666;
   width: 100%;
   border: 1px solid #E6E6E6;
@@ -83,7 +75,6 @@ input[type=password] {
   margin: 6px auto;
   text-indent: 10px;
 }
-
 .btn-submit {
   color: #FFFFFF;
   font-size: 18px;

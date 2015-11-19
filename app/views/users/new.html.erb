@@ -2,15 +2,14 @@
   <div class="container">
     <div class="form">
 
-    <h1>Sign up</h1>
+      <h1>Sign up</h1>
 
-    <%= simple_form_for(@user) do |f| %>
-      <%= f.text_field :name, :placeholder => "Ваше имя" %>
-      <%= f.email_field :email, :placeholder => "Email" %>
-      <%= f.password_field :password, :placeholder => "Пароль" %>
-      <%= f.submit "Создать аккаунт", class: "btn-submit" %>
-    <% end %>
-
+      <%= simple_form_for(@user) do |f| %>
+        <%= f.text_field :name, :placeholder => "Ваше имя" %>
+        <%= f.email_field :email, :placeholder => "Email" %>
+        <%= f.password_field :password, :placeholder => "Пароль" %>
+        <%= f.submit "Создать аккаунт", class: "btn-submit" %>
+      <% end %>
 
     </div>
   </div>

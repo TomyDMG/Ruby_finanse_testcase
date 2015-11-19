@@ -7,17 +7,17 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @quote = Quote.new
-    #@quotes = @user.quotes.all
+    # @quotes = @user.quotes.all
     if @user.quotes.any?
-    @chart = LazyHighCharts::HighChart.new('StockChart') do |f|
-    f.title(:text => "График цены портфела")
-    f.rangeSelector(selected: 1)
-    f.series(:name => "Цена портфеля",  :data => portfolio_price)
-    f.yAxis [      {:title => {:text => "Цена портфеля в USD", :margin => 70} }    ]
-    #f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical',)
-    f.chart({:defaultSeriesType=>"line"})
+      @chart = LazyHighCharts::HighChart.new('StockChart') do |f|
+        f.title(text: 'График цены портфела')
+        f.rangeSelector(selected: 1)
+        f.series(name: 'Цена портфеля', data: portfolio_price)
+        f.yAxis [{ title: { text: 'Цена портфеля в USD', margin: 70 } }]
+        # f.legend(:align => 'right', :verticalAlign => 'top', :y => 75, :x => -50, :layout => 'vertical',)
+        f.chart(defaultSeriesType: 'line')
+      end
     end
-  end
   end
 
   def new
@@ -34,25 +34,25 @@ class UsersController < ApplicationController
     end
   end
 
-
   def portfolio_price
-    @ans = Array.new(504) {0}
-    @dates = Array.new
-    @array = Array.new
+    @ans = Array.new(509) { 0 }
+    @dates = []
+    @array = []
     User.find(params[:id]).quotes.each do |q|
-      @data = @yahoo_client.historical_quotes(q.symbol, { start_date: Time::now-(24*60*60*365*2), end_date: Time::now })
+      @data = @yahoo_client.historical_quotes(q.symbol, start_date: Time.now - (24 * 60 * 60 * 365 * 2), end_date: Time.now)
       @data.each do |d|
         @array << d.close.to_f * q.quantity
       end
-      @array.each_with_index {|e, i| @ans[i] += e}
-      @array = Array.new
+      @array.each_with_index { |e, i| @ans[i] += e }
+      @array = []
     end
-    @data.each {|d| @dates << d.trade_date.to_time.to_i * 1000 + 86400000}
-    @ans.each_with_index {|e, i| @ans[i] = [@dates[i], e]}
-    return @ans.reverse
+    @data.each { |d| @dates << d.trade_date.to_time.to_i * 1000 + 86_400_000 }
+    @ans.each_with_index { |e, i| @ans[i] = [@dates[i], e] }
+    @ans.reverse
   end
 
   private
+
   def user_params
     params.require(:user).permit(:name, :email, :password)
   end
@@ -63,5 +63,4 @@ class UsersController < ApplicationController
       q.price = @yahoo_client.quotes([q.symbol], [:ask])[0].ask.to_f
     end
   end
-
 end

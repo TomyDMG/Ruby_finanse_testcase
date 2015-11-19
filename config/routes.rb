@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :quotes, :users
+  root to: "users#index"
+  resources :quotes, only: [:edit]
+  resources :users, only: [:index, :new, :show]
   get 'signup' => 'users#new'
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
