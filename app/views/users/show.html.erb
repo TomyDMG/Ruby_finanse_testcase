@@ -34,7 +34,7 @@
 </div>
 <%= simple_form_for(@quote) do |f| %>
 <div class="form">
-  <%= f.text_field :symbol, placeholder: "Compose new quote..." %>
+  <%= f.text_field :symbol, placeholder: "Compose new quote (e.g. BAC, AAPL, QQQ, ...)" %>
   <%= f.number_field :quantity, placeholder: "Quantiy...", min: 1 %>
   <%= f.submit "Post", class: "btn btn-large btn-primary" %>
 </div>
