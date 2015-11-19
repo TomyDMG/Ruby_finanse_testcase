@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: "users#index"
-  resources :quotes, only: [:edit]
+  resources :quotes #, only: [:edit]
   resources :users, only: [:index, :new, :show]
   get 'signup' => 'users#new'
   get 'login' => 'sessions#new'
